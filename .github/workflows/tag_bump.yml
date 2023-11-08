@@ -31,3 +31,5 @@ jobs:
           PRERELEASE: true
           PRERELEASE_SUFFIX: PR_${{ github.event.number }}
           VERBOSE: true
+          BRANCH_HISTORY: last
+          TAG_CONTEXT: branch
