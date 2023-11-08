@@ -22,31 +22,33 @@ jobs:
           PREVIOUS_VERSION=${LATEST_TAG#v}
           if [[ $PREVIOUS_VERSION =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
             PR_NUMBER="${{ github.event.number }}"
-            PR_BRANCH="v${PREVIOUS_VERSION}-dev.${PR_NUMBER}"
-            echo "PREVIOUS_VERSION=${PREVIOUS_VERSION}" >> $GITHUB_ENV
-            echo "PR_BRANCH=${PR_BRANCH}" >> $GITHUB_ENV
+            NEW_TAG="v${PREVIOUS_VERSION}-dev.${PR_NUMBER}"
+            echo "NEW_TAG=${NEW_TAG}" >> $GITHUB_ENV
           else
             echo "Error: Invalid previous version format."
             exit 1
           fi
         continue-on-error: true
 
-      - name: Create and switch to PR branch
-        run: |
-          PR_BRANCH="${{ env.PR_BRANCH }}"
-          git checkout -b "$PR_BRANCH"
-        if: success()
-
       - name: Tag commits in PR
         run: |
-          PR_BRANCH="${{ env.PR_BRANCH }}"
-          git tag $PR_BRANCH
-          git push origin $PR_BRANCH
+          NEW_TAG="${{ env.NEW_TAG }}"
+          git tag $NEW_TAG
+          git push origin $NEW_TAG
         if: success()
 
       - name: Merge PR and create a release tag
         if: github.event_name == 'pull_request' && github.event.action == 'closed'
         run: |
           PREVIOUS_VERSION="${{ env.PREVIOUS_VERSION }}"
-          PR_BRANCH="${{ env.PR_BRANCH }}"
-          if [ "$GITHUB_EVENT_PATH" !=
+          if [ "$GITHUB_EVENT_PATH" != "" ]; then
+            MERGED=$(jq -r .pull_request.merged $GITHUB_EVENT_PATH)
+            if [ "$MERGED" = "true" ]; then
+              git checkout master
+              git pull
+              git tag -a -m "Release $PREVIOUS_VERSION" "v$PREVIOUS_VERSION"
+              git push origin master --tags
+            fi
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
