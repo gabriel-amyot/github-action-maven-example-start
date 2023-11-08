@@ -1,5 +1,5 @@
-name: Maven CI/CD
-
+#name: Maven CI/CD
+#
 on:
   pull_request:
     branches: [ master ]
@@ -19,7 +19,7 @@ jobs:
         with:
           # You can change the name of the tag with this input.
           # Default: 'latest'
-          ref: ${{env.PR_NUMBER}}
+          ref: latest_${{env.PR_NUMBER}}
 
           # If a description is provided, the action will use it to create an annotated tag. If none is given, the action will create a lightweight tag.
           #description: Description for the tag
