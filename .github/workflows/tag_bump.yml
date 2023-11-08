@@ -7,9 +7,13 @@ on:
       - master
 
 jobs:
+
+
   build:
     #if: github.event.pull_request.merged == true
     runs-on: ubuntu-22.04
+    env:
+      PR_NUMBER: ${{ github.event.number }}
     permissions:
       contents: write
     steps:
@@ -23,3 +27,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token
           WITH_V: true
+          PRERELEASE_SUFFIX: ${{ github.event.number }}
