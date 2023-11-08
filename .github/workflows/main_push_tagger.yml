@@ -1,51 +1,29 @@
-name: Tagging
-
+# example 2: on merge to master from pull request (recommended)
+name: Bump version
 on:
   pull_request:
     types:
-      - opened
+      - closed
       - synchronize
+    branches:
+      - master
 
 jobs:
-  tag:
-    runs-on: ubuntu-latest
-
+  build:
+    #if: github.event.pull_request.merged == true
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.merge_commit_sha }}
+          fetch-depth: '0'
 
-      - name: Determine the next version number
-        id: version
-        run: |
-          PREVIOUS_VERSION=v2.2.1
-          PR_NUMBER="${{ github.event.number }}"
-          PR_BRANCH="v2.2.2-dev.${PR_NUMBER}"
-          echo "VERSION=${PREVIOUS_VERSION}" >> $GITHUB_ENV
-          echo "PR_BRANCH=${PR_BRANCH}" >> $GITHUB_ENV
-        continue-on-error: true
-
-      - name: Tag commits in PR
-        run: |
-          PR_BRANCH="${{ env.PR_BRANCH }}"
-          git tag $PR_BRANCH
-          git push origin $PR_BRANCH
-        if: success()
-
-      - name: Merge PR and create a release tag
-        if: github.event_name == 'pull_request' && github.event.action == 'closed'
-        run: |
-          VERSION="${{ env.VERSION }}"
-          PR_BRANCH="${{ env.PR_BRANCH }}"
-          if [ "$GITHUB_EVENT_PATH" != "" ]; then
-            MERGED=$(jq -r .pull_request.merged $GITHUB_EVENT_PATH)
-            if [ "$MERGED" = "true" ]; then
-              git checkout master
-              git pull
-              git merge "$PR_BRANCH" --no-ff -m "Merge PR $PR_BRANCH"
-              git tag -a -m "Release $VERSION" "$VERSION"
-              git push origin master --tags
-              git push origin --delete "$PR_BRANCH"
-            fi
-          fi
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@1.64.0 # Don't use @master or @v1 unless you're happy to test the latest version
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token
+          WITH_V: true
+          PRERELEASE: true
+
