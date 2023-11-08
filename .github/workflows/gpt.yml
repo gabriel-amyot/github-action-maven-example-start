@@ -1,13 +1,14 @@
-name: Bump and create tag
+name: Bump and Create Tag
 
 on:
-  push:
+  pull_request:
     branches:
       - main
 
 jobs:
   bump_and_create_tag:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -27,11 +28,12 @@ jobs:
           minor="${version_parts[1]}"
           patch="${version_parts[2]}"
           patch=$((patch + 1))
-          new_tag="${major}.${minor}.${patch}-pr${{ env.PR_NUMBER }}"
+          new_tag="${major}.${minor}.${patch}-pr${{ github.event.pull_request.number }}"
           echo "::set-output name=new_tag::$new_tag"
         shell: bash
 
       - name: Create and push a new tag
+        if: success() && github.event_name == 'pull_request' && github.event.action == 'opened'
         run: |
           git tag ${{ steps.parse_latest_tag.outputs.new_tag }}
           git push origin ${{ steps.parse_latest_tag.outputs.new_tag }}
