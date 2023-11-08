@@ -1,13 +1,10 @@
 name: Bump version
 on:
-  pull_request:
-    types:
-      - closed
+  push:
     branches:
       - master
 jobs:
   build:
-    if: github.event.pull_request.merged == true
     runs-on: ubuntu-22.04
     permissions:
       contents: write
@@ -24,4 +21,3 @@ jobs:
           WITH_V: false
           PRERELEASE: false
           DEFAULT_BUMP: patch
-          BRANCH_HISTORY: last
