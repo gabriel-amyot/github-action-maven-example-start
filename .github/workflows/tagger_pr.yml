@@ -19,5 +19,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: false
           PRERELEASE: true
-          PRERELEASE_SUFFIX: pr_${{ github.event.number }}_sha_${{ github.sha }}
+          PRERELEASE_SUFFIX: pr_${{ github.event.number }}-${{ env.sha_short }}
+          #_sha_${{ github.sha }}
           DEFAULT_BUMP: patch
