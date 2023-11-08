@@ -4,9 +4,9 @@ on:
     branches: [ master ]
 jobs:
   build:
-    runs-on: ubuntu-22.04
-    permissions:
-      contents: write
+    runs-on: ubuntu-latest
+    permissions: write-all
+
     steps:
       - uses: actions/checkout@v3
         with:
@@ -19,5 +19,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: false
           PRERELEASE: true
-          PRERELEASE_SUFFIX: pr_${{ github.event.number }}
+          PRERELEASE_SUFFIX: pr_${{ github.event.number }}_${{ github.run_id }}_${{ github.run_number }}_${{ github.run_attempt }}
           DEFAULT_BUMP: patch
