@@ -7,9 +7,11 @@ on:
 jobs:
   bump_and_create_tag:
     runs-on: ubuntu-latest
+    env:
+      PR_NUMBER: ${{ github.event.number }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Get the latest tag
         id: get_latest_tag
