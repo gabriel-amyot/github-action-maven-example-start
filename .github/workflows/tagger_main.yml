@@ -24,4 +24,4 @@ jobs:
           WITH_V: false
           PRERELEASE: false
           DEFAULT_BUMP: patch
-
+          BRANCH_HISTORY: last

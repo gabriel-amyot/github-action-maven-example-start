@@ -21,4 +21,4 @@ jobs:
           PRERELEASE: true
           PRERELEASE_SUFFIX: pr_${{ github.event.number }}
           DEFAULT_BUMP: patch
-
+          BRANCH_HISTORY: last
