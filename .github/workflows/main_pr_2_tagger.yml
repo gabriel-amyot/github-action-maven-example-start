@@ -1,42 +1,42 @@
-name: Maven CI/CD
-
-on:
-  pull_request:
-    branches: [ master ]
-
-jobs:
-  build_and_test:
-
-    runs-on: ubuntu-latest
-    env:
-      PR_NUMBER: ${{ github.event.number }}
-
-    steps:
-    - name: "⏬ Check out repository code"
-      uses: actions/checkout@v3
-
-#    - name: View context attributes
+#name: Maven CI/CD
+#
+#on:
+#  pull_request:
+#    branches: [ master ]
+#
+#jobs:
+#  build_and_test:
+#
+#    runs-on: ubuntu-latest
+#    env:
+#      PR_NUMBER: ${{ github.event.number }}
+#
+#    steps:
+#    - name: "⏬ Check out repository code"
+#      uses: actions/checkout@v3
+#
+##    - name: View context attributes
+##      uses: actions/github-script@v6
+##      with:
+##        script: console.log(context)
+##
+##    - uses: actions/github-script@v6
+##      env:
+##        FIRST_NAME: Mona
+##        LAST_NAME: Octocat
+##      with:
+##        script: |
+##          const { FIRST_NAME, LAST_NAME } = process.env
+##          console.log(`Hello ${FIRST_NAME} ${LAST_NAME}`)
+#
+#    - name: Create tag
 #      uses: actions/github-script@v6
 #      with:
-#        script: console.log(context)
-#
-#    - uses: actions/github-script@v6
-#      env:
-#        FIRST_NAME: Mona
-#        LAST_NAME: Octocat
-#      with:
 #        script: |
-#          const { FIRST_NAME, LAST_NAME } = process.env
-#          console.log(`Hello ${FIRST_NAME} ${LAST_NAME}`)
-
-    - name: Create tag
-      uses: actions/github-script@v6
-      with:
-        script: |
-          github.git.createRef({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            ref: `refs/tags/0.0.0-pr${env.PR_NUMBER}`,
-            sha: context.sha
-          })
-
+#          github.git.createRef({
+#            owner: context.repo.owner,
+#            repo: context.repo.repo,
+#            ref: `refs/tags/0.0.0-pr${env.PR_NUMBER}`,
+#            sha: context.sha
+#          })
+#
