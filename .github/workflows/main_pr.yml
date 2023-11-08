@@ -26,7 +26,9 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         tag_prefix: ''
-        append_to_pre_release_tag: ${GITHUB_REF#refs/heads/}_$(git rev-parse --short "$GITHUB_SHA")
+        append_to_pre_release_tag: PR_TAG_${{ github.event.pull_request.head.sha }}
 
-        #${{ github.event.pull_request.head.sha }}
+        # ${GITHUB_REF#refs/heads/}_$(git rev-parse --short "$GITHUB_SHA")
+
+        #
 
