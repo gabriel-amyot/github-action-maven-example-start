@@ -13,13 +13,6 @@ jobs:
         with:
           fetch-depth: 0 # Required to fetch all commits
 
-      - name: Set up Git
-        run: |
-          git config --global user.email "you@example.com"
-          git config --global user.name "Your Name"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Tag on Merge
         id: tag
         run: |
