@@ -1,0 +1,41 @@
+name: Bump and Create Tag
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  bump_and_create_tag:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Get the latest tag
+        id: get_latest_tag
+        run: |
+          latest_tag=$(git describe --abbrev=0 --tags 2>/dev/null || echo "0.0.0")
+          echo "::set-output name=latest_tag::$latest_tag"
+        shell: bash
+
+      - name: Parse the latest tag
+        id: parse_latest_tag
+        run: |
+          IFS='.' read -ra version_parts <<< "${{ steps.get_latest_tag.outputs.latest_tag }}"
+          major="${version_parts[0]}"
+          minor="${version_parts[1]}"
+          patch="${version_parts[2]}"
+          patch=$((patch + 1))
+          new_tag="${major}.${minor}.${patch}-pr${{ github.event.pull_request.number }}"
+          echo "::set-output name=new_tag::$new_tag"
+        shell: bash
+
+      - name: Create and push a new tag
+        if: success() && github.event_name == 'pull_request' && github.event.action == 'opened'
+        run: |
+          git tag ${{ steps.parse_latest_tag.outputs.new_tag }}
+          git push origin ${{ steps.parse_latest_tag.outputs.new_tag }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
