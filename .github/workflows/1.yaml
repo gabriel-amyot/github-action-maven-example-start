@@ -1,28 +1,41 @@
-name: Tag on Merge to Master
+name: Version Tagging
+
 on:
   push:
     branches:
       - master
+  pull_request:
+    types:
+      - synchronize
+    branches:
+      - master
 
 jobs:
-  tag:
+  bump-version:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out code
+      - name: Checkout Repository
         uses: actions/checkout@v2
         with:
-          fetch-depth: 0 # Required to fetch all commits
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
 
-      - name: Tag on Merge
-        id: tag
-        run: |
-          # Calculate the new version and tag
-          new_tag=$(your-tagging-script.sh) # Replace with your tagging logic
-          git tag -a $new_tag -m "Tagging version $new_tag"
-          git push origin $new_tag
-          echo "::set-output name=new_tag::$new_tag"
-        env:
+      - name: Set Up Git
+        run: git config --global --add safe.directory /github/workspace
+
+      - name: Bump Version and Push Tag
+        id: bump
+        uses: anothrNick/github-tag-action@1.64.0
+        with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: patch
+          PRERELEASE: true
+          PRERELEASE_SUFFIX: -pr
 
-      - name: Set outputs
-        run: echo "new_tag=${{ steps.tag.outputs.new_tag }}" >> $GITHUB_ENV
+      - name: Overwrite Pre-release Tag
+        if: github.event_name == 'pull_request'
+        run: git tag -f ${{ steps.bump.outputs.new_tag }}
+
+      - name: Push Tag
+        if: github.event_name == 'pull_request'
+        run: git push origin ${{ steps.bump.outputs.new_tag }}
