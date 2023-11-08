@@ -2,8 +2,7 @@ name: Bump and create tag
 
 on:
   pull_request:
-    branches:
-      - main
+    branches: [ master ]
 
 jobs:
   bump_and_create_tag:
