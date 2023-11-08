@@ -19,7 +19,7 @@ jobs:
         with:
           # You can change the name of the tag with this input.
           # Default: 'latest'
-          tag-name: ${{env.PR_NUMBER}}
+          ref: ${{env.PR_NUMBER}}
 
           # If a description is provided, the action will use it to create an annotated tag. If none is given, the action will create a lightweight tag.
           #description: Description for the tag
