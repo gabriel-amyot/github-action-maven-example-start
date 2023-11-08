@@ -10,7 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
+    - name: "⏬ Check out repository code"
+      uses: actions/checkout@v3- name: "⏬ Check out repository code"
+      uses: actions/checkout@v3
     - name: View context attributes
       uses: actions/github-script@v6
       with:
@@ -29,10 +31,10 @@ jobs:
       uses: actions/github-script@v6
       with:
         script: |
-          github.rest.git.createRef({
+          github.git.createRef({
             owner: context.repo.owner,
             repo: context.repo.repo,
-            ref: 'refs/tags/<tagname>',
+            ref: "refs/tags/0.0.0-pr${{env.PR_NUMBER}}",
             sha: context.sha
           })
 
