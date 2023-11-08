@@ -36,7 +36,7 @@ jobs:
           github.git.createRef({
             owner: context.repo.owner,
             repo: context.repo.repo,
-            ref: "refs/tags/0.0.0-pr"${{ env.PR_NUMBER }},
+            ref: `refs/tags/0.0.0-pr${env.PR_NUMBER}`,
             sha: context.sha
           })
 
