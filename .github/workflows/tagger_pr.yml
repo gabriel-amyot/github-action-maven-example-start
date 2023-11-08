@@ -20,4 +20,4 @@ jobs:
           WITH_V: false
           PRERELEASE: true
           PRERELEASE_SUFFIX: pr_${{ github.event.number }}_${{ github.run_id }}_${{ github.run_number }}_${{ github.run_attempt }}
-          DEFAULT_BUMP: patch
+          DEFAULT_BUMP: none
