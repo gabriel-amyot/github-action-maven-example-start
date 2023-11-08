@@ -34,7 +34,7 @@ jobs:
       - name: Create and switch to PR branch
         run: |
           PR_BRANCH="${{ env.PR_BRANCH }}"
-          git checkout -b $PR_BRANCH
+          git checkout -b "$PR_BRANCH"
         if: success()
 
       - name: Tag commits in PR
@@ -49,16 +49,4 @@ jobs:
         run: |
           PREVIOUS_VERSION="${{ env.PREVIOUS_VERSION }}"
           PR_BRANCH="${{ env.PR_BRANCH }}"
-          if [ "$GITHUB_EVENT_PATH" != "" ]; then
-            MERGED=$(jq -r .pull_request.merged $GITHUB_EVENT_PATH)
-            if [ "$MERGED" = "true" ]; then
-              git checkout master
-              git pull
-              git merge "$PR_BRANCH" --no-ff -m "Merge PR $PR_BRANCH"
-              git tag -a -m "Release $PREVIOUS_VERSION" "$PREVIOUS_VERSION"
-              git push origin master --tags
-              git push origin --delete "$PR_BRANCH"
-            fi
-          fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          if [ "$GITHUB_EVENT_PATH" !=
