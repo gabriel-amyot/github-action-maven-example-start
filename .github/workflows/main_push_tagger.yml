@@ -2,11 +2,7 @@
 name: Bump version
 on:
   pull_request:
-    types:
-      - closed
-    branches:
-      - master
-
+    branches: [ master ]
 jobs:
   build:
     #if: github.event.pull_request.merged == true
