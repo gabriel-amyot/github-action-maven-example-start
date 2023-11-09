@@ -1,7 +1,6 @@
 public class App
 {
-    public static void main( String[] args )
-    {
+d C    {asdasdasdasdsad
         System.out.println("I am asdfgdfgfgasdsdaasdasdasdsdasddsayoasdadsuwerwasdadrtyr qwqweqwewqeqeqweweweewwewwqewqeqwqeweqeqwdfgdfgfdasdasdawesome Javzasdaxcza application! modsdsdication");
 
         DeepThought ourSuperComputer = new DeepThought();
