@@ -1,4 +1,4 @@
-name: Bump version
+name: Bump version phips28
 on:
   pull_request:
     branches:
@@ -15,8 +15,8 @@ jobs:
           ref: ${{ github.sha }}
           fetch-depth: '0'
 
-      - name:  'Automated Version Bump'
-        uses:  'phips28/gh-action-bump-version@master'
+      - name:  Automated Version Bump
+        uses:  phips28/gh-action-bump-version@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
