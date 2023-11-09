@@ -1,0 +1,20 @@
+name: Super Duper Linter
+on:
+  push:
+    branches-ignore: [master]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    name: Lint code base
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: '0'
+
+      - name: Super Duper Linter
+        uses: JustinGrote/Super-Duper-Linter@preview
