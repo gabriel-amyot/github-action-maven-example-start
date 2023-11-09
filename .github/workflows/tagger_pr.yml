@@ -1,4 +1,4 @@
-name: Bump version
+name: Bump version anothrNick
 on:
   pull_request:
     branches:
@@ -6,7 +6,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions: write-all
+    permissions:
+      contents: write
 
     steps:
       - uses: actions/checkout@v3
@@ -15,10 +16,11 @@ jobs:
           fetch-depth: '0'
 
       - name: Bump version and push tag
-        uses: anothrNick/github-tag-action@1.67.0
+        uses: anothrNick/github-tag-action@1.66.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: false
           PRERELEASE: true
-          PRERELEASE_SUFFIX: pr-${{ github.event.number }}_${{ github.run_id }}_${{ github.run_number }}
+          PRERELEASE_SUFFIX: pr_${{ github.event.number }}
           DEFAULT_BUMP: patch
+
