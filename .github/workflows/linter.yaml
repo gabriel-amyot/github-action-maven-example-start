@@ -13,8 +13,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          ref: ${{ github.sha }}
           fetch-depth: '0'
 
-      - name: Super Duper Linter
-        uses: JustinGrote/Super-Duper-Linter@preview
+#      - name: Super Duper Linter
+#        uses: JustinGrote/Super-Duper-Linter@preview
+
+      - name: Lint Code Base
+        uses: github/super-linter@v3
+        env:
+          VALIDATE_ALL_CODEBASE: false
+          DEFAULT_BRANCH: master
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
