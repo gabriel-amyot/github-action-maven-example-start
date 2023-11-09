@@ -1,10 +1,11 @@
 public class App
 {
-d C    {asdasdasdasdsad
+    public static void main( String[] args )
+    {
         System.out.println("I am asdfgdfgfgasdsdaasdasdasdsdasddsayoasdadsuwerwasdadrtyr qwqweqwewqeqeqweweweewwewwqewqeqwqeweqeqwdfgdfgfdasdasdawesome Javzasdaxcza application! modsdsdication");
 
         DeepThought ourSuperComputer = new DeepThought();
         int ans = ourSuperComputer.answer_to_the_ultimate_question_of_life_the_universe_and_everything();
-        System.out.println( ans asda);
+        System.out.println(ans);
     }
 }
