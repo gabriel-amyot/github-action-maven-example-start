@@ -23,7 +23,7 @@ jobs:
           PRERELEASE_SUFFIX: pr-${{ github.event.number }}
           #_${{ github.run_id }}_${{ github.run_number }}
           DEFAULT_BUMP: patch
-          DRY_RUN: true
+          DRY_RUN: false
 #
 #      - name: Overwrite Pre-release Tag
 #        run: |
