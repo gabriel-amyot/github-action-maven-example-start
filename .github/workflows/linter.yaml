@@ -1,3 +1,8 @@
+#
+# Documentation:
+# https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions
+#
+
 name: Super Duper Linter
 on:
   pull_request:
@@ -7,6 +12,10 @@ jobs:
   build:
     name: Lint code base
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read
+      statuses: write
 
     steps:
       - uses: actions/checkout@v3
