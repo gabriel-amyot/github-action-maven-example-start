@@ -21,8 +21,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: false
           PRERELEASE: true
-          PRERELEASE_SUFFIX: pr_${{ github.event.number }}
+          PRERELEASE_SUFFIX: pr
           DEFAULT_BUMP: patch
           GIT_API_TAGGING: true
+          DRY_RUN: false
+
 
 
