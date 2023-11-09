@@ -21,15 +21,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: false
           PRERELEASE: true
-          PRERELEASE_SUFFIX: pr
-          #${{ github.event.number }}
+          PRERELEASE_SUFFIX: pr-${{ github.event.number }}
           #_${{ github.run_id }}_${{ github.run_number }}
           DEFAULT_BUMP: patch
-          DRY_RUN: false
-          GIT_API_TAGGING: true
-          #OWNER:
-#
-#      - name: Overwrite Pre-release Tag
-#        run: |
-#          git tag s-f ${{ steps.bump.outputs.new_tag }}
-#          git push origin ${{ steps.bump.outputs.new_tag }}
+
