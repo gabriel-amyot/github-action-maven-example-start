@@ -6,7 +6,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions: write-all
+    permissions:
+      contents: write
 
     steps:
       - uses: actions/checkout@v3
@@ -15,10 +16,9 @@ jobs:
           fetch-depth: '0'
 
       - name: Bump version and push tag
-        uses: anothrNick/github-tag-action@1.67.0
+        uses: anothrNick/github-tag-action@1.63.0
         env:
-          #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_TOKEN: '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'
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: false
           PRERELEASE: true
           PRERELEASE_SUFFIX: pr
