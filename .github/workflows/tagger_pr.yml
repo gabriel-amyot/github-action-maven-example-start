@@ -26,6 +26,7 @@ jobs:
           #_${{ github.run_id }}_${{ github.run_number }}
           DEFAULT_BUMP: patch
           DRY_RUN: false
+          GIT_API_TAGGING: true
           #OWNER:
 #
 #      - name: Overwrite Pre-release Tag
