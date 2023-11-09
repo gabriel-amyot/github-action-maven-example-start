@@ -24,5 +24,7 @@ jobs:
           PRERELEASE_SUFFIX: pr_${{ github.event.number }}
           DEFAULT_BUMP: patch
           GIT_API_TAGGING: true
+          DRY_RUN: false
+
 
 
