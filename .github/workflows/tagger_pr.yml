@@ -1,24 +1,30 @@
-#name: Bump version
-#on:
-#  pull_request:
-#    branches:
-#      - master
-#jobs:
-#  build:
-#    runs-on: ubuntu-latest
-#    permissions: write-all
-#
-#    steps:
-#      - uses: actions/checkout@v3
-#        with:
-#          ref: ${{ github.event.pull_request.merge_commit_sha }}
-#          fetch-depth: '0'
-#
-#      - name: Bump version and push tag
-#        uses: anothrNick/github-tag-action@1.67.0
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#          WITH_V: false
-#          PRERELEASE: true
-#          PRERELEASE_SUFFIX: pr-${{ github.event.number }}_${{ github.run_id }}_${{ github.run_number }}
-#          DEFAULT_BUMP: patch
+name: Bump version
+on:
+  pull_request:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions: write-all
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.merge_commit_sha }}
+          fetch-depth: '0'
+
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@1.67.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: false
+          PRERELEASE: true
+          PRERELEASE_SUFFIX: pr-${{ github.event.number }}_${{ github.run_id }}_${{ github.run_number }}
+          DEFAULT_BUMP: patch
+          DRY_RUN: true
+
+      - name: Overwrite Pre-release Tag
+        run: |
+          git tag -f ${{ steps.bump.outputs.new_tag }}
+          git push origin ${{ steps.bump.outputs.new_tag }}    
