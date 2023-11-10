@@ -16,7 +16,7 @@ jobs:
           fetch-depth: '0'
 
       - name: Bump version and push tag
-        uses: gabriel-amyot/github-tag-action@0.0.5
+        uses: gabriel-amyot/github-tag-action@0.0.6
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: false
