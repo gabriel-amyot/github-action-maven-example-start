@@ -21,13 +21,3 @@ jobs:
           WITH_V: false
           PRERELEASE: false
           DEFAULT_BUMP: patch
-
-      - name: Release
-        uses: docker://antonyurchenko/git-release:latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          args: |
-            darwin-amd64.zip
-            linux-amd64.zip
-            windows-amd64.zip    
