@@ -1,4 +1,4 @@
-name: Bump version anothrNick
+name: Tag PR
 on:
   pull_request:
     branches:
