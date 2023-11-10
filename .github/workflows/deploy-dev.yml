@@ -1,0 +1,23 @@
+name: Trigger gitlab deployment
+on:
+  pull_request:
+  #push:
+    branches:
+      - master
+env:
+  GITLAB_CI_TOKEN: ${{ secrets.GITLAB_CI_JOB_TOKEN }}
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: '0'
+
+      - name: Trigger GitLab CI
+        run: |
+          curl -X POST --fail -F token=$GITLAB_CI_TOKEN -F "ref=dev" -F "variables[TF_VAR_repository_checkout_value]=2.0.43" https://gitlab.prod.origin8cares.com/api/v4/projects/98/trigger/pipeline
+          
