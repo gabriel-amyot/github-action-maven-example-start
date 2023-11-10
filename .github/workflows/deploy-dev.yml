@@ -1,4 +1,4 @@
-name: Tag master branch
+name: Trigger gitlab deployment
 on:
   pull_request:
   #push:

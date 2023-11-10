@@ -23,3 +23,4 @@ jobs:
           PRERELEASE: true
           PRERELEASE_SUFFIX: dev
           DEFAULT_BUMP: patch
+          OVERRIDE_PRERELEASE: true
