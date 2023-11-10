@@ -2,7 +2,7 @@ public class App
 {
     public static void main( String[] args )
     {
-        System.out.println("I aasdam aasdadasdasdasdsqwewssaasdsdsdasdasddsayouwerwasdadrtyr qweqweweweewwewwqewqeqwqeweqeqwdfgdfgfdasdasdawesome Javzasdaxcza application! modsdsdication");
+        System.out.println("I aasdam aweweasdadasdasdasdsqwewssaasdsdsdasdasddsayouwerwasdadrtyr qweqweweweewwewwqewqeqwqeweqeqwdfgdfgfdasdasdawesome Javzasdaxcza application! modsdsdication");
 
 
         DeepThought ourSuperComputer = new DeepThought();
