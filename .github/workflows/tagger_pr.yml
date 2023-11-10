@@ -16,10 +16,10 @@ jobs:
           fetch-depth: '0'
 
       - name: Bump version and push tag
-        uses: anothrNick/github-tag-action@1.66.0 #https://github.com/marketplace/actions/github-tag-bump
+        uses: gabriel-amyot/github-tag-action@0.0.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: false
           PRERELEASE: true
-          PRERELEASE_SUFFIX: pr
+          PRERELEASE_SUFFIX: dev
           DEFAULT_BUMP: patch
