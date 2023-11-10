@@ -16,11 +16,11 @@ jobs:
           fetch-depth: '0'
 
       - name: Bump version and push tag
-        uses: gabriel-amyot/github-tag-action@0.0.4
+        uses: gabriel-amyot/github-tag-action@0.0.5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: false
           PRERELEASE: true
-          PRERELEASE_SUFFIX: dev_${{ github.event.number }}
+          PRERELEASE_SUFFIX: dev_${{ steps.vars.outputs.short_ref }}
           DEFAULT_BUMP: patch
           OVERRIDE_PRERELEASE: true
