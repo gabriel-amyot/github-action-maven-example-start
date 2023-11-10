@@ -8,6 +8,7 @@ env:
   GITLAB_CI_TOKEN: ${{ secrets.GITLAB_CI_JOB_TOKEN }}
   ENVIRONMENT: "dev"
   TAG: "2.0.43"
+  PROJECT: "98"
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -21,5 +22,5 @@ jobs:
 
       - name: Trigger GitLab CI
         run: |
-          curl -X POST --fail -F token=$GITLAB_CI_TOKEN -F "ref=$ENVIRONMENT" -F "variables[TF_VAR_repository_checkout_value]=$TAG" https://gitlab.prod.origin8cares.com/api/v4/projects/98/trigger/pipeline
+          curl -X POST --fail -F token=$GITLAB_CI_TOKEN -F "ref=$ENVIRONMENT" -F "variables[TF_VAR_repository_checkout_value]=$TAG" https://gitlab.prod.origin8cares.com/api/v4/projects/$PROJECT/trigger/pipeline
           
