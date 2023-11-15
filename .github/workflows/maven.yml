@@ -34,7 +34,7 @@ jobs:
       - name: Check for vulnerabilities
         run: mvn org.owasp:dependency-check-maven:check
       - name: Send to Slack if something failed
-        if: failure()
+#        if: failure()
         uses: rtCamp/action-slack-notify@v2
         env:
          SLACK_CHANNEL: cicd-alerts
