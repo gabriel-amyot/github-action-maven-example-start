@@ -33,3 +33,13 @@ jobs:
         run: mvn -B package --file pom.xml
       - name: Check for vulnerabilities
         run: mvn org.owasp:dependency-check-maven:check
+      - name: Send to Slack if something failed
+        if: failure()
+        uses: rtCamp/action-slack-notify@v2
+        env:
+         SLACK_CHANNEL: cicd-alerts
+         SLACK_COLOR: ${{ job.status }}
+         SLACK_MESSAGE: 'Dependency check failed :crying_cat_face:'
+         SLACK_TITLE: Dependency check wants attention in ${{ github.repository }} / ${{ github.workspace }}
+         SLACK_USERNAME: BuildSecurityCheck
+         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
