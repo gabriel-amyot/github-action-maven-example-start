@@ -32,14 +32,14 @@ jobs:
       - name: Build with Maven
         run: mvn -B package --file pom.xml
       - name: Check for vulnerabilities
-        run: mvn org.owasp:dependency-check-maven:check
+        run: mvn org.owasp:dependency-check-maven:checksds
       - name: Send to Slack if something failed
-#        if: failure()
+        if: ${{ failure() && github.event.pull_request.merged == true }}
         uses: rtCamp/action-slack-notify@v2
         env:
          SLACK_CHANNEL: cicd-alerts
          SLACK_COLOR: ${{ job.status }}
-         SLACK_MESSAGE: 'Dependency check failed :crying_cat_face:'
-         SLACK_TITLE: Dependency check wants attention in ${{ github.repository }} / ${{ github.workspace }}
-         SLACK_USERNAME: BuildSecurityCheck
+         SLACK_MESSAGE: 'A check failed :crying_cat_face:'
+         SLACK_TITLE: A check wants attention in ${{ github.repository }}
+         SLACK_USERNAME: BuildCheck
          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
